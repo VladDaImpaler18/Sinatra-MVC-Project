@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_11_061457) do
+ActiveRecord::Schema.define(version: 2020_07_12_215749) do
 
   create_table "owners", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
+    t.string "fname"
+    t.string "lname"
+    t.string "street"
+    t.string "phone"
+    t.string "city"
+    t.string "zip"
+    t.string "state"
   end
 
   create_table "pet_pictures", force: :cascade do |t|
@@ -26,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_061457) do
     t.string "name"
     t.string "breed"
     t.integer "owner_id"
+    t.integer "profile"
   end
 
   create_table "pictures", force: :cascade do |t|

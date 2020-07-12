@@ -7,7 +7,7 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, "Cherryberry Llam and Ferry"
+    set :session_secret, "Cherryberry Llama n Ferry"
   end
 
 
@@ -23,7 +23,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+      @current_user ||= Owner.find_by(id: session[:user_id]) if session[:user_id]
     end
 
   end
