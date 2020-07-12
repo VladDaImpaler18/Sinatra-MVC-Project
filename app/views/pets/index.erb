@@ -1,0 +1,5 @@
+This is the index page for all pets
+
+<% @pets.each do |pet| %>
+<%= if pet.owner_id==nil %>
+<%= pet.name %>
