@@ -6,6 +6,7 @@ gem 'sinatra-activerecord'
 gem 'rake'
 gem 'dotenv'
 gem 'bcrypt'
+gem "mini_magick"
 
 group :development do
    gem 'shotgun'
