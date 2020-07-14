@@ -63,6 +63,7 @@ GEM
       sinatra (>= 1.2.1)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    validates_and_formats_phones (0.0.7)
 
 PLATFORMS
   ruby
@@ -79,6 +80,7 @@ DEPENDENCIES
   sinatra-activerecord
   sqlite3 (~> 1.3.6)
   tux
+  validates_and_formats_phones
 
 BUNDLED WITH
    2.1.4

@@ -6,7 +6,7 @@ gem 'sinatra-activerecord'
 gem 'rake'
 gem 'dotenv'
 gem 'bcrypt'
-#gem "mini_magick"
+gem 'validates_and_formats_phones'
 
 group :development do
    gem 'shotgun'

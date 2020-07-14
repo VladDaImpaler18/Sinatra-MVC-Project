@@ -1,4 +1,5 @@
 Owner.create(
+    :id => 1
     :username => "Animal Shelter".downcase
     :password => "Super Secrets" 
     :phone => "516-778-5555"
