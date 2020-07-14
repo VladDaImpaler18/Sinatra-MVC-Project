@@ -6,7 +6,7 @@ class Picture < ActiveRecord::Base
     has_many :pets, through: :pet_pictures
 
     def get_picture
-        imagepath = File.join(Dir.pwd, '')
-        image = File.open()
+        "../images/#{self.filename}"
+        #use the filename to fetch the picture
     end
 end

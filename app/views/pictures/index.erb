@@ -1,0 +1,11 @@
+This is the Pictures index page
+<% @pictures.each do |picture| %>
+<%= picture.title %><br>
+
+<img src="<%= picture.get_picture %>" alt="attempt1!?"><br>
+<img src="../images/pic1.jpg" alt="attempt2!?"><br>
+
+<%= picture.caption %><br>
+<%= picture.description %><br>
+<%= picture.get_picture %>
+<% end %>
