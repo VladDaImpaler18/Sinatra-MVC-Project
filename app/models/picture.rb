@@ -6,7 +6,7 @@ class Picture < ActiveRecord::Base
     has_many :pets, through: :pet_pictures
 
     def get_picture
-        "../images/#{self.filename}"
+        "images/pets/#{self.filename}"
         #use the filename to fetch the picture
     end
 end
