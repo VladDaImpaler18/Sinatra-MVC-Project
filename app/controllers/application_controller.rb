@@ -27,13 +27,13 @@ class ApplicationController < Sinatra::Base
     end
 
     def is_animal_shelter?
-      animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => "animal shelter")
+      animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => "animal shelter") #prevents wrong first ID mishaps
       @current_user==animal_shelter ? true : false
     end
     
     def standardize_inputs
       params[:username].downcase! #standarizes usernames in database
-        if !params[:phone].nil? #checks to see if signing up to account
+        if !params[:phone].nil? #only applies from owners/signup
             params[:phone] = params[:phone].to_phone #standarizes phone number in database
         end
     end

@@ -1,1 +1,21 @@
 Page for the user, displays pets profiles. Pet profiles are links to the pet's page
+<% if is_animal_shelter? %>
+<h1>Welcome Admin</h1>
+
+
+<a href="/pets/new"> Add pets </a>
+
+
+<h3>Inspect Owners:</h3>
+<form method="post" action="/owners">
+<% @owners.each do |owner| %>
+    <% if owner.id==1 %>
+    <% next %>
+    <% end %>
+    <input type="radio" name="owner" id="<%= owner.id %>" value="<%= owner.id %>"> <%= owner.fname.capitalize %> <%= owner.lname.capitalize %> </input>  
+<% end%>
+<br>
+</form>
+<% end %>
+
+<a href="/owners/logout">Log Out</a>

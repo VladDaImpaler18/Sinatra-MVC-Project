@@ -2,24 +2,36 @@ class OwnersController < ApplicationController
 
     get "/owners" do
         #display all pets of user. If the user is the animal shelter, we can add pets, and assign them
-        
+        if logged_in?
+            @owners = Owner.all #TODO: limit exposure by checking for admin 
+            current_user
+            erb :'owners/index'
+        else
+            redirect "/owners/login"
+        end
     end
 
-    post "/owners/signup" do
-        standardize_inputs
-        if !owner #user doesn't exist
-            new_owner = Owner.new(params)
-            if new_owner.save #all necessary 
-                session[:user_id] = new_owner.id
-                redirect "/owners/index"
-            else
-                erb :error #error when 
-            end 
-        end
+    post "/owners" do
+
     end
 
     get "/owners/new" do
         erb :'owners/new'
+    end
+
+    post "/owners/signup" do
+        standardize_inputs
+        owner = Owner.find_by(:username => params[:username])
+        if !owner #user doesn't exist
+            new_owner = Owner.new(params)
+            if new_owner.save #all necessary 
+                session[:user_id] = new_owner.id
+                current_user
+                redirect :'/owners'
+            else
+                erb :error #error when 
+            end 
+        end
     end
 
     get "/owners/login" do
@@ -32,13 +44,29 @@ class OwnersController < ApplicationController
         if owner #owner exists
             if owner && owner.authenticate(params[:password]) #valid user and correct password
                 session[:user_id] = owner.id
-                redirect "/owners/index"
+                current_user
+                redirect  :'/owners'
             else 
                 erb :error #invalid password
             end
         else
             erb :error #user not found
         end
+    end
+
+    get "/owners/logout" do 
+        session.clear
+        redirect "/"
+    end
+
+    get "/owners/:id" do 
+       #need to get individual id maybe do radio buttons for params? 
+        erb :'/owners/show'
+    end
+
+    get "/owners/:id/edit" do
+        @owner = Owner.find_by_id(session[:user_id])
+        erb :'/owners/edit'
     end
  
 

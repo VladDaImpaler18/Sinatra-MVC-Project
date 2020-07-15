@@ -1,10 +1,12 @@
 <p>This is the Pictures index page</p>
 <% @pictures.each do |picture| %>
-<%= picture.title %><br>
 
-<img src="<%= picture.get_picture %>" alt="<%= picture.filename %>" height="300" width="231"><br>
-
-<%= picture.caption %><br>
+<h3><%= picture.title %></h3>
+<figure>
+<img src="<%= picture.get_picture %>" alt="<%= picture.filename %>" height="300" width="231"/><br>
+<figcaption>
+<%= picture.caption %>
+</figcaption>
 <%= picture.description %><br>
-<%= picture.get_picture %>
+</figure>
 <% end %>
