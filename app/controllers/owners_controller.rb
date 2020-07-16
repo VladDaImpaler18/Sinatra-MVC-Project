@@ -3,8 +3,7 @@ class OwnersController < ApplicationController
     get "/owners" do
         #display all pets of user. If the user is the animal shelter, we can add pets, and assign them
         if logged_in?
-            binding.pry
-            @owners = Owner.all #TODO: limit exposure by checking for admin 
+            @owners = Owner.all if animal_shelter? #TODO: limit exposure by checking for admin 
             current_user
             erb :'owners/index'
         else
@@ -46,7 +45,7 @@ class OwnersController < ApplicationController
             if owner && owner.authenticate(params[:password]) #valid user and correct password
                 session[:user_id] = owner.id
                 current_user
-                redirect  :'/owners'
+                redirect :'/owners'
             else 
                 erb :error #invalid password
             end

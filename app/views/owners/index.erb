@@ -9,13 +9,21 @@ Page for the user, displays pets profiles. Pet profiles are links to the pet's p
 <h3>Inspect Owners:</h3>
 <form method="post" action="/owners">
 <% @owners.each do |owner| %>
-    <% if owner.id==1 %>
+    <% if owner.id==1 && owner.username == "Animal Shelter"%>
     <% next %>
     <% end %>
     <input type="radio" name="owner" id="<%= owner.id %>" value="<%= owner.id %>"> <%= owner.fname.capitalize %> <%= owner.lname.capitalize %> </input>  
-<% end%>
-<br>
-</form>
 <% end %>
+<br>
+<input type="submit" value="Submit">
+</form>
+<% elsif logged_in?%>
+<h1>Welcome <%= current_user.fullname %>
+    <p>
+     <% current_user.pets.each do |pet| %>
+        <a href="/pet/#{pet.id}"><%= pet.name %></a>
+     <% end %>
+    </p>
 
+<% end#end of user %>
 <a href="/owners/logout">Log Out</a>

@@ -6,4 +6,8 @@ class Owner < ActiveRecord::Base
     validates_and_formats_phones :phone, '### ###-####'
 
     has_many :pets
+
+    def fullname
+        "#{fname} #{lname}" unless fname.nil? && lname.nil? 
+    end
 end

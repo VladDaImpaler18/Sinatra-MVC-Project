@@ -1,6 +1,6 @@
 Owner.create(
     :id => 1,
-    :username => "Animal Shelter".downcase,
+    :username => "Animal Shelter", #downcase in inputs, and owners/index:12; application_controller:30,35
     :password => "Super Secrets", 
     :phone => "516-778-5555".to_phone,
     :street => "23 Cherry Ave",
@@ -36,9 +36,9 @@ pet_1 = Pet.create(
     :name => "Mako",
     :breed => "Border Collie"
 )
-mako_pic = picture_1 = Picture.create(
+mako_pic = Picture.create(
     :title => "Mako's Puppy Picture",
-    :filename => "#{RandomWordGenerator.composed(2, 20, '-')}_pic1.jpg",
+    :filename => "unseaworthiness-shew_pic1.jpg",
     :caption => "Puppy Pic",
     :description => "One of the first pictures taken of Mako, 8-weeks old"
 )
@@ -47,18 +47,26 @@ pet_2 = Pet.create(
     :name => "Luna",
     :breed => "Border Collie"
 )
-luna_pic = picture_2 = Picture.create(
+luna_pic = Picture.create(
     :title => "Luna's Puppy Picture",
-    :filename => "#{RandomWordGenerator.composed(2, 20, '-')}_pic2.JPG",
+    :filename => "warmheartedness-bawd_ic2.JPG",
     :caption => "Puppy Pic",
     :description => "One of the first pictures taken of Luna, 8-weeks old"
 )
 pet_1.owner = tester_1
+
+
 pet_2.owner = tester_1
+
+
 tester_1.pets << pet_1
 tester_1.pets << pet_2
+tester_1.save
+
 pet_1.pictures << mako_pic
 pet_2.pictures << luna_pic
+pet_1.save
+pet_2.save
 
 pet_3 = Pet.create(
     :name => "Spot",
@@ -67,12 +75,13 @@ pet_3 = Pet.create(
 
 dog_pic = Picture.create(
     :title => "Baby Pitbull",
-    :filename => "#{RandomWordGenerator.composed(2, 20, '-')}_pitbullPuppy.jpg",
+    :filename => "downheartedness-awns_pitbullPuppy.jpg",
     :caption => "Puppy Pit",
     :description => "Pitbull, not the singer"
 )
 
 pet_3.pictures << dog_pic
+
 
 pet_4 = Pet.create(
     :name => "Sasha",
@@ -81,7 +90,7 @@ pet_4 = Pet.create(
 
 cat_pic = Picture.create(
     :title => "Fancy cat",
-    :filename => "#{RandomWordGenerator.composed(2, 20, '-')}_cat pic4.jpg",
+    :filename => "witchdoctors-whizkid_cat pic4.jpg",
     :caption => "Cat pose",
     :description => "Siamese cat"
 )
@@ -94,9 +103,13 @@ pet_5 = Pet.create(
 
 pet_3.owner = tester_2
 pet_4.owner = tester_2
+pet_3.save
+pet_4.save
+
 tester_2.pets << pet_3
 tester_2.pets << pet_4
 tester_2.pets << pet_5
+tester_2.save
 
 pet_6 = Pet.create(
     :name => "Shredder",
@@ -105,11 +118,12 @@ pet_6 = Pet.create(
 
 rat_pic = Picture.create(
     :title => "Ratboi",
-    :filename => "#{RandomWordGenerator.composed(2, 20, '-')}_rat_pict5.jpg",
+    :filename => "reweighing-setscrews_rat_pict5.jpg",
     :caption => "Lab Rat",
     :description => "Albino lab rat"
 )
 pet_6.pictures << rat_pic
+pet_6.save
 
 pet_7 = Pet.create(
     :name => "Slithers",
@@ -118,9 +132,10 @@ pet_7 = Pet.create(
 
 snake_pic = Picture.create(
     :title => "Baby Snake doo doo doo doo",
-    :filename => "#{RandomWordGenerator.composed(2, 20, '-')}_baby Snake pic.jpg",
+    :filename => "weens-disembowelment_baby Snake pic.jpg",
     :caption => "Snake Pic",
     :description => "Baby snake in hand"
 )
 
 pet_7.pictures << snake_pic
+pet_7.save
