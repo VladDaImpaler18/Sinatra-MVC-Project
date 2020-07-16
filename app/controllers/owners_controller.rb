@@ -3,6 +3,7 @@ class OwnersController < ApplicationController
     get "/owners" do
         #display all pets of user. If the user is the animal shelter, we can add pets, and assign them
         if logged_in?
+            binding.pry
             @owners = Owner.all #TODO: limit exposure by checking for admin 
             current_user
             erb :'owners/index'
@@ -60,8 +61,13 @@ class OwnersController < ApplicationController
     end
 
     get "/owners/:id" do 
-       #need to get individual id maybe do radio buttons for params? 
+       #need to get individual id maybe do radio buttons for params?
+       if logged_in?
+        binding.pry 
         erb :'/owners/show'
+       else
+        redirect '/owners'
+       end
     end
 
     get "/owners/:id/edit" do

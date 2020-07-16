@@ -33,6 +33,8 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     rake (13.0.1)
+    random-word-generator (0.0.1)
+      sqlite3-ruby (>= 1.2.1)
     require_all (3.0.0)
     ripl (0.7.1)
       bond (~> 0.5.1)
@@ -54,6 +56,8 @@ GEM
       activerecord (>= 4.1)
       sinatra (>= 1.0)
     sqlite3 (1.3.13)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
     thread_safe (0.3.6)
     tilt (2.0.10)
     tux (0.3.0)
@@ -74,6 +78,7 @@ DEPENDENCIES
   dotenv
   pry
   rake
+  random-word-generator (~> 0.0.1)
   require_all
   shotgun
   sinatra

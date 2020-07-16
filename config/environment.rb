@@ -9,4 +9,5 @@ ActiveRecord::Base.establish_connection(
   :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
 )
 require './app/controllers/application_controller'
+require 'random_word_generator'
 require_all 'app'
