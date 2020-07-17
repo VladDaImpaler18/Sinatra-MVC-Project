@@ -1,6 +1,6 @@
 <p>This is the Pictures index page</p>
 <% @pictures.each do |picture| %>
-
+<% if picture.pets.first.owner.nil? %>
 <h3><%= picture.title %></h3>
 <figure>
 <img src="<%= picture.get_picture_path %>" alt="<%= picture.filename %>" height="300" width="231"/><br>
@@ -9,4 +9,5 @@
 </figcaption>
 <%= picture.description %><br>
 </figure>
+<% end %>
 <% end %>

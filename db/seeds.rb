@@ -49,7 +49,7 @@ pet_2 = Pet.create(
 )
 luna_pic = Picture.create(
     :title => "Luna's Puppy Picture",
-    :filename => "warmheartedness-bawd_ic2.JPG",
+    :filename => "warmheartedness-bawd_pic2.JPG",
     :caption => "Puppy Pic",
     :description => "One of the first pictures taken of Luna, 8-weeks old"
 )

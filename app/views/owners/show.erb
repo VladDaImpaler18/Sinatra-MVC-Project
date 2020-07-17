@@ -1,1 +1,16 @@
-this will show individual users to edit for admins fdff
+<h2><%= current_user.fullname %></h2>
+<p>Owned pets</p>
+<% current_user.pets.each do |pet| %>
+<a href="/pets/<%= pet.id %>">
+    <figure>
+    <% if !pet.profile.nil? %>
+        <img src="<%= pet.profile.get_picture_path %>" alt="<%= pet.profile.filename %>" height="300" width="231"/> <br>
+    <% end %>
+    <figcaption>
+    <%= pet.name %>
+    </figcaption>
+    </figure>
+</a>
+<% end %>
+
+<a href="/owners/<%= current_user.id %>/edit">View/Edit Account Information</a>

@@ -6,12 +6,19 @@ class Picture < ActiveRecord::Base
     has_many :pets, through: :pet_pictures
 
     def get_picture_path
-        "images/pets/#{self.filename}"
-        #use the filename to fetch the picture
+        "/images/pets/#{self[:filename]}"
     end
 
     def filename
         self[:filename].split("_").last
+    end
+
+    def filename=(arg)
+        self[:filename]="#{self[:filename].split("_").first}_#{arg}"
+    end
+
+    def filename_salted
+        self[:filename]
     end
 
     def actual_filename

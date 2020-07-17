@@ -1,0 +1,13 @@
+<h1><%= @pet.name %></h1>
+<p>
+  <% if !@pet.profile.nil? %>
+     <img src="<%= @pet.profile.get_picture_path %>" alt="<%= pet.profile.filename %>" height="300" width="231"/> <br>
+  <% end %>
+</p>
+<p>Companion to: <%= @pet.owner.fullname unless @pet.owner.nil? %></p>
+<p>Breed: <%= @pet.breed unless @pet.breed.nil? %></p>
+
+<% @pet.pictures.each do |picture| %>
+  <p><img src="<%= picture.get_picture_path %>" alt="<%= picture.filename %>" height="300" width="231"/></p>
+<% end %>
+<br>
