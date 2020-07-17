@@ -1,24 +1,28 @@
 <form method="post" action="/owners/<%= current_user.id %>">
-    <h3>Your Info:</h3>
-
+<input id="hidden" type="hidden" name="_method" value="patch">
+    <h2>Your Info:</h2>
+    <h4>Enter information below to change contact info and\or mailing info</h4>
     <p><strong>Contact Info:</strong><br>
     <p><label for="fname">First Name:</label><input type="text" name="fname" placeholder="<%= current_user.fname %>">
-    <label for="lname">Last Name:</label><input type="text" name="lname"> placeholder="<%= current_user.</p>
-    <label for="phone">Phone Number:</label><input type="text" name="phone" size=14>
+    <label for="lname">Last Name:</label><input type="text" name="lname" placeholder="<%= current_user.lname %>"></p>
+    <label for="phone">Phone Number:</label><input type="text" name="phone" size=14 placeholder="<%= current_user.phone %>">
     </p>
     <br>
     <p><strong>Mailing Info:</strong><br>
-    <label for="street">Street Address:</label><input type="text" name="street" size=40><br>
+    <label for="street">Street Address:</label><input type="text" name="street" size=40 placeholder="<%= current_user.street %>"><br>
 
-    <p><label for="city">City:</label><input type="text" name="city">
-    <label for="zip">Zip Code:</label><input type="text" name="zip" size=5></p>
+    <p><label for="city">City:</label><input type="text" name="city" placeholder="<%= current_user.city %>"> <label for="state">State:</label><input type="text" name="state" size=2 placeholder="<%= current_user.state %>">
+    <label for="zip">Zip Code:</label><input type="text" name="zip" size=5 placeholder="<%= current_user.zip %>"></p>
     </p>
     
     <br><br>
     <p><strong>Account Info:</strong></p>
-    <p><label for="username">Username: <input type="text" name="username"></p>
-    <p><label for="password">Password: <input type="password" name="password"></p>
+    <p><i> Enter information below to change password: </i></p>
+    <p><label for="old_password">Old Password: <input type="password" name="old_password"></p>
+    <p><label for="new_password">New Password: <input type="password" name="new_password"></p>
+    <p><label for="new_password2">Confirm New Password: <input type="password" name="new_password2"></p>
     <br>
     
-    <input type="submit" value="Create Account">
+    <input type="submit" value="Update Account">
 </form>
+<button type="submit" onclick='window.location.href="/owners/<%= current_user.id %>";'>Go Back</button>

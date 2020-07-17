@@ -69,21 +69,30 @@ class OwnersController < ApplicationController
         redirect '/owners/login'
        end
     end
+    
+    patch "/owners/:id" do
+        if !params[:old_password].empty? && current_user.authenticate(params[:old_password])
+                current_user.password= params[:new_password] if params[:new_password]==params[:new_password2] && !params[:new_password].empty?
+        else
+            @error_message = "Invalid Password"
+            erb :'/owners/edit'
+        end
+        params.each do |k,v|
+            next if k=="old_password" || k=="new_password" ||k=="_method" || k=="id"
+            current_user[k]=v unless v.empty?
+        end
+        redirect to "/owners/#{current_user.id}"
+    end
 
     get "/owners/:id/edit" do
         if !logged_in?
             @error_message = "You must be logged in to view this content"
             erb :error
         end
-        @owner = Owner.find_by_id(params[:id])
         erb :'/owners/edit'
     end
 
-    patch '/owners/:id' do
 
-
-        redirect to "/owners/#{current_user.id}"
-    end
  
 
 end
