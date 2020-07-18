@@ -1,2 +1,12 @@
 This is the index page for all pets
+<% @pets.each do |pet| %>
 
+<a href="/pets/<%= pet.id %>">
+    <figure>
+        <img src="<%= pet.profile_pic_filename %>" alt="<%= pet.profile_pic_filename %>" height="300" width="231"/><br>
+        <figcaption>
+            <%= pet.name %>
+        </figcaption>
+    </figure>
+</a>
+<% end %>

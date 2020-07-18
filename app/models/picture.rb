@@ -13,10 +13,16 @@ class Picture < ActiveRecord::Base
         self[:filename].split("_").last
     end
 
-    def filename=(arg)
-        self[:filename]="#{self[:filename].split("_").first}_#{arg}"
+    def filename=(arg) #look into this when standarizing
+        if !self[:filename].nil?
+            self[:filename]="#{self[:filename].split("_").first}_#{arg}" #seed data input
+        elsif !arg.split("_").first.size==15
+            self[:filename]="#{RandomWordGenerator.composed(2,15,"-")}_#{arg}"
+        else
+            self[:filename]=arg
+        end
     end
-
+    #new_pic = Picture.new(:title => "Generic Photo", :filename => "wellheads-wides_Border collie.jpg", :caption => "Stock Photo", :description => "This photo was taken from the Internet")
     def filename_salted
         self[:filename]
     end

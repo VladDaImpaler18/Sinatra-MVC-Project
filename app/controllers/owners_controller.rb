@@ -92,7 +92,4 @@ class OwnersController < ApplicationController
         erb :'/owners/edit'
     end
 
-
- 
-
 end

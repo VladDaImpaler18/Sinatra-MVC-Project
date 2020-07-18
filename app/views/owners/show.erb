@@ -4,7 +4,7 @@
 <a href="/pets/<%= pet.id %>">
     <figure>
     <% if !pet.profile.nil? %>
-        <img src="<%= pet.profile.get_picture_path %>" alt="<%= pet.profile.filename %>" height="300" width="231"/> <br>
+        <img src="<%= pet.profile_pic %>" alt="<%= pet.profile_pic_filename %>" height="300" width="231"/> <br>
     <% end %>
     <figcaption>
     <%= pet.name %>

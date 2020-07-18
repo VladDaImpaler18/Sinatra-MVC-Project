@@ -34,8 +34,9 @@ class ApplicationController < Sinatra::Base
     def standardize_inputs
       params[:username].downcase! if !params[:username].nil? && params[:username] != "Animal Shelter" #standarizes usernames in database
       params[:phone] = params[:phone].to_phone if !params[:phone].nil? #standarizes phone number in database
-      params[:filename] = "#{RandomWordGenerator.composed(2, 20, '-')}_#{params[:filename]}" if !params[:filename].nil?
+      params[:filename] = "#{RandomWordGenerator.composed(2, 20, '-')}_#{params[:filename].gsub("_"," ")}" if !params[:filename].nil? #replaces underscores with spaces to avoid complications
     end
+
 
   end
   
