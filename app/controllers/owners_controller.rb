@@ -71,17 +71,25 @@ class OwnersController < ApplicationController
     end
     
     patch "/owners/:id" do
-        if !params[:old_password].empty? && current_user.authenticate(params[:old_password])
-                current_user.password= params[:new_password] if params[:new_password]==params[:new_password2] && !params[:new_password].empty?
+        owner=Owner.find_by_id(session[:user_id])
+        if !params[:old_password].empty? && owner.authenticate(params[:old_password]) #update password
+            if params[:new_password]==params[:new_password2] && !params[:new_password].empty?
+                owner.password= params[:new_password] 
+            else
+                @error_message = "New password and confirmation do not match"
+                erb :'/error'
+                end
         else
             @error_message = "Invalid Password"
-            erb :'/owners/edit'
+            erb :'/error'
         end
         params.each do |k,v|
             next if k=="old_password" || k=="new_password" ||k=="_method" || k=="id"
-            current_user[k]=v unless v.empty?
+            owner[k]=v unless v.empty?
         end
-        redirect to "/owners/#{current_user.id}"
+        owner.save(validate: false)
+        
+        redirect to "/owners/#{owner.id}"
     end
 
     get "/owners/:id/edit" do
