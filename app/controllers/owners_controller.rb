@@ -78,7 +78,7 @@ class OwnersController < ApplicationController
             else
                 @error_message = "New password and confirmation do not match"
                 erb :'/error'
-                end
+            end
         else
             @error_message = "Invalid Password"
             erb :'/error'
