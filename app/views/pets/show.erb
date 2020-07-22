@@ -1,3 +1,4 @@
+<a href="/pets/<%= @pet.id %>/edit">Edit pet information</a>
 <h1><%= @pet.name %></h1>
 <p>
   <h5>Profile picture:</h5>
@@ -6,7 +7,13 @@
 <p>Companion to: <%= @pet.owner.fullname unless @pet.owner.nil? %></p>
 <p>Breed: <%= @pet.breed unless @pet.breed.nil? %></p>
 
+<h5>Photo Album</h5>
 <% @pet.pictures.each do |picture| %>
+  <a href="/pictures/<%= picture.id %>">
   <img src="<%= picture.get_picture_path %>" alt="<%= picture.filename %>" height="300" width="231"/>
+  </a>
 <% end %>
 <br>
+<button type="submit" onclick='window.location.href="/owners/<%= current_pet.owner.id %>";'>Go Back</button>
+<br>
+<p><a href="/pictures/new"> Add picture to photo album </a></p>

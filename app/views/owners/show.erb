@@ -1,14 +1,14 @@
 <h2><%= current_user.fullname %></h2>
 <p>Owned pets</p>
 <% current_user.pets.each do |pet| %>
-<a href="/pets/<%= pet.id %>">
     <figure>
+    <a href="/pets/<%= pet.id %>">
         <img src="<%= pet.profile_pic %>" alt="<%= pet.profile_pic_filename %>" height="300" width="231"/> <br>
     <figcaption>
     <%= pet.name %>
     </figcaption>
+    </a>
     </figure>
-</a>
 <% end %>
-
+<button type="submit" onclick='window.location.href="/owners/logout";'>Logout</button><br>
 <a href="/owners/<%= current_user.id %>/edit">View/Edit Account Information</a>

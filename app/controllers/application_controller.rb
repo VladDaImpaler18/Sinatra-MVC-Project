@@ -26,6 +26,10 @@ class ApplicationController < Sinatra::Base
       @current_user ||= Owner.find_by(id: session[:user_id]) if session[:user_id]
     end
 
+    def current_pet
+      @current_pet ||= Pet.find_by_id(params[:id]) if params[:id]
+    end
+
     def animal_shelter?
       animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => "Animal Shelter") #prevents wrong first ID mishaps
       @current_user==animal_shelter ? true : false
@@ -40,8 +44,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def pet_owner?
-      @current_pet ||= Pet.find_by_id(params[:id]) if params[:id]
-      current_user.pets.include(@current_pet)
+      current_user.pets.include?(current_pet)
     end
 
 

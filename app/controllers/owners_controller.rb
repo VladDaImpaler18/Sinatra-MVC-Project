@@ -28,7 +28,6 @@ class OwnersController < ApplicationController
                 current_user
                 redirect "/owners/#{current_user.id}"
             else
-                binding.pry
                 erb :'owners/new'
             end 
         end

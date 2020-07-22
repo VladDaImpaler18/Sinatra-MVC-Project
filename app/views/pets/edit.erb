@@ -1,0 +1,27 @@
+<% if logged_in? %>
+<form method="post" action="/pets/<%= @current_pet.id %>">
+<input id="hidden" type="hidden" name="_method" value="patch">
+
+    <label for="name">Name:</label><input type="text" name="name" placeholder="<%= @current_pet.name %>">
+    <label for="breed">Breed:</label><input type="breed" name="breed" placeholder="<%= @current_pet.breed %>">
+
+  <h5>Profile picture:</h5>
+  <img src="<%= @current_pet.profile_pic %>" alt="<%= @current_pet.profile_pic_filename %>" height="300" width="231"/> <br>
+
+
+<h5>Photo Album</h5>
+<% @current_pet.pictures.each do |picture| %>
+  <p><img src="<%= picture.get_picture_path %>" alt="<%= picture.filename %>" height="300" width="231"/><br>
+  <input type="radio" name="profile" id="<%= picture.id %>" value="<%= picture.id %>"> Set "<%= picture.title %>" as the profile picture </input>
+  </p>
+  <% end %>
+  <br>
+    
+    <input type="submit" value="Update Pet Information">
+</form>
+<br>
+<a href="/pictures/new"> Add more pictures </a><br>
+<button type="submit" onclick='window.location.href="/pets/<%= @current_pet.id %>";'>Cancel Edits</button>
+<% else %>
+<a href="/"> You must be logged in to view this page </a>
+<% end %>

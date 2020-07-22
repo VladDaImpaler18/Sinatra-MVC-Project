@@ -5,6 +5,19 @@ class PetsController < ApplicationController
         erb :'pets/index'
     end
 
+    get "/pets/new" do
+        @owners = Owner.all
+        erb :'pets/new'
+    end
+
+    post "/pets/new" do
+        new_pet = Pet.new(:name => params[:name], :breed => params[:breed], :owner_id => params[:owner])
+        if new_pet.save
+            redirect "/pets/#{new_pet.id}"
+        else
+            erb :'/pets/new'
+        end
+    end
 
     get "/pets/:id" do
         if logged_in? 
@@ -20,4 +33,29 @@ class PetsController < ApplicationController
             erb :error
         end
     end
+
+    patch "/pets/:id" do
+        params.each do |k,v|
+            next if k=="_method" || k=="id"
+            current_pet[k]=v unless v.empty?
+        end
+        current_pet.save
+        
+        redirect to "/pets/#{current_pet.id}"
+    end
+
+    get "/pets/:id/edit" do 
+        if logged_in?
+            if pet_owner? || anaimal_shelter?
+                erb :'pets/edit'
+            else
+                @error_message = "This isn't your pet, you cannot edit the pet's information"
+                erb :error
+            end
+        else
+            @error_message = "You lack authorization to view this page"
+            erb :error
+        end
+    end
+
 end

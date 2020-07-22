@@ -7,7 +7,7 @@ class Pet < ActiveRecord::Base
 
     def profile_pic
         if self.profile.nil?
-            image_location = "/images/pets/wussy-waylayers_default logo.jpg"
+            image_location = "/images/pets/worktables-longsword_default logo.jpg"
         else
             pic = Picture.find_by_id(self.profile)
             image_location = pic.get_picture_path

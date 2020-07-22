@@ -1,0 +1,12 @@
+<form method="post" action="/pets/new">
+<p><label for="name">Name:</label><input type="text" name="name"></p>
+<p><label for="breed">Breed:</label><input type="text" name="breed"></p>
+<p><label for="owner">Owner:</label>
+<select name="owner" id="owner">
+    <% @owners.each do |owner| %>
+        <option value="<%= owner.id %>"> <%= owner.fullname %> </option>  
+    <% end %>
+</select></p>
+<p><input type="submit" value="Create Pet"></p>
+
+</form>
