@@ -44,6 +44,12 @@ class PetsController < ApplicationController
         redirect to "/pets/#{current_pet.id}"
     end
 
+    delete "/pets/:id" do
+        @pet = Pet.find_by_id(params[:id])
+        @pet.delete
+        redirect to "/owners/#{current_user.id}"
+    end
+
     get "/pets/:id/edit" do 
         if logged_in?
             if pet_owner? || anaimal_shelter?

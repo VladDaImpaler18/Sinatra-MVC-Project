@@ -10,10 +10,6 @@ class OwnersController < ApplicationController
         end
     end
 
-    #post "/owners" do
-        
-    #end
-
     get "/owners/new" do
         erb :'owners/new'
     end
@@ -53,6 +49,12 @@ class OwnersController < ApplicationController
         else
             erb :error #user not found
         end
+    end
+
+    delete '/owners/:id' do 
+        @owner = Owner.find_by_id(params[:id])
+        @owner.delete
+        redirect to "/"
     end
 
     get "/owners/logout" do 

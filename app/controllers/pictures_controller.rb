@@ -7,7 +7,7 @@ class PicturesController < ApplicationController
 
 
     get "/pictures/:id" do
-
+        
     end
 
     get "/pictures/:id/edit" do
