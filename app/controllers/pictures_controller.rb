@@ -5,7 +5,12 @@ class PicturesController < ApplicationController
         erb :'/pictures/index'
     end
 
-
+    get "/picture/new" do
+        current_pet
+        erb :'pictures/new'
+    end
+    
+    
     get "/pictures/:id" do
         
     end
@@ -13,4 +18,6 @@ class PicturesController < ApplicationController
     get "/pictures/:id/edit" do
 
     end
+
+    
 end

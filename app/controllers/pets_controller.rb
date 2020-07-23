@@ -13,7 +13,8 @@ class PetsController < ApplicationController
     post "/pets/new" do
         new_pet = Pet.new(:name => params[:name], :breed => params[:breed], :owner_id => params[:owner])
         if new_pet.save
-            redirect "/pets/#{new_pet.id}"
+            session[:pet_id] = new_pet.id
+            redirect "/pets/#{current_pet.id}"
         else
             erb :'/pets/new'
         end
@@ -22,7 +23,8 @@ class PetsController < ApplicationController
     get "/pets/:id" do
         if logged_in? 
             if pet_owner? || animal_shelter?
-                @pet = Pet.find_by_id(params[:id])
+                session[:pet_id] = params[:id]
+                current_pet
                 erb :'/pets/show'
             else
                 @error_message = "This isn't your pet, you cannot view this page"
@@ -47,6 +49,7 @@ class PetsController < ApplicationController
     delete "/pets/:id" do
         @pet = Pet.find_by_id(params[:id])
         @pet.delete
+        session.delete(:pet_id)
         redirect to "/owners/#{current_user.id}"
     end
 

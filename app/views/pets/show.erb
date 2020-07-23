@@ -1,14 +1,14 @@
-<a href="/pets/<%= @pet.id %>/edit">Edit pet information</a>
-<h1><%= @pet.name %></h1>
+<a href="/pets/<%= current_pet.id %>/edit">Edit pet information</a>
+<h1><%= current_pet.name %></h1>
 <p>
   <h5>Profile picture:</h5>
-  <img src="<%= @pet.profile_pic %>" alt="<%= @pet.profile_pic_filename %>" height="300" width="231"/> <br>
+  <img src="<%= current_pet.profile_pic %>" alt="<%= current_pet.profile_pic_filename %>" height="300" width="231"/> <br>
 </p>
-<p>Companion to: <%= @pet.owner.fullname unless @pet.owner.nil? %></p>
-<p>Breed: <%= @pet.breed unless @pet.breed.nil? %></p>
+<p>Companion to: <%= current_pet.owner.fullname unless current_pet.owner.nil? %></p>
+<p>Breed: <%= current_pet.breed unless current_pet.breed.nil? %></p>
 
 <h5>Photo Album</h5>
-<% @pet.pictures.each do |picture| %>
+<% current_pet.pictures.each do |picture| %>
   <a href="/pictures/<%= picture.id %>">
   <img src="<%= picture.get_picture_path %>" alt="<%= picture.filename %>" height="300" width="231"/>
   </a>

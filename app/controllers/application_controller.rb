@@ -23,11 +23,11 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      @current_user ||= Owner.find_by(id: session[:user_id]) if session[:user_id]
+      @current_user ||= Owner.find_by_id(session[:user_id]) if session[:user_id]
     end
 
     def current_pet
-      @current_pet ||= Pet.find_by_id(params[:id]) if params[:id]
+      @current_pet ||= Pet.find_by_id(session[:pet_id]) if session[:pet_id]
     end
 
     def animal_shelter?
