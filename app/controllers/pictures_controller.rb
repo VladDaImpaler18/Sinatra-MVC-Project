@@ -12,10 +12,12 @@ class PicturesController < ApplicationController
     
     post "/pictures/new" do
         binding.pry
-    end
-
-    post "/pictures/upload" do
-        binding.pry
+        @filename = params[:file][:filename]
+        file = params[:file][:tempfile]
+      
+        File.open("./public/#{@filename}", 'wb') do |f|
+          f.write(file.read)
+        end
     end
     
     get "/pictures/:id" do
