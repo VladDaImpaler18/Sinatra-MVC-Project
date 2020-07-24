@@ -22,8 +22,8 @@ class PetsController < ApplicationController
 
     get "/pets/:id" do
         if logged_in? 
+            session[:pet_id] = params[:id]
             if pet_owner? || animal_shelter?
-                session[:pet_id] = params[:id]
                 current_pet
                 erb :'/pets/show'
             else

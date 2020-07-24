@@ -5,11 +5,18 @@ class PicturesController < ApplicationController
         erb :'/pictures/index'
     end
 
-    get "/picture/new" do
+    get "/pictures/new" do
         current_pet
-        erb :'pictures/new'
+        erb :'/pictures/new'
     end
     
+    post "/pictures/new" do
+        binding.pry
+    end
+
+    post "/pictures/upload" do
+        binding.pry
+    end
     
     get "/pictures/:id" do
         
