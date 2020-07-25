@@ -5,8 +5,7 @@ class Picture < ActiveRecord::Base
     has_many :pet_pictures
     has_many :pets, through: :pet_pictures
 
-    @@NUMBEROFWORDS = 2
-    @@NUMBEROFCHARS = 20
+
     def get_picture_path
         "/images/pets/#{self[:filename]}"
     end
@@ -16,10 +15,12 @@ class Picture < ActiveRecord::Base
     end
 
     def filename=(arg) #look into this when  Only used for console edits
+        num_of_words = ENV["WORDS"]
+        num_of_characters = ENV["LETTERS"]
         if !self[:filename].nil?
             self[:filename]="#{self[:filename].split("_").first}_#{arg}" #seed data input
-        elsif !arg.split("_").first.size==@@NUMBEROFCHARS
-            self[:filename]="#{RandomWordGenerator.composed(@@NUMBEROFWORDS,@@NUMBEROFCHARS,"-")}_#{arg}"
+        elsif !arg.split("_").first.size==num_of_characters
+            self[:filename]="#{RandomWordGenerator.composed(num_of_words,num_of_characters,"-")}_#{arg}"
         else
             self[:filename]=arg
         end

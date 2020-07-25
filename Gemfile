@@ -4,10 +4,10 @@ gem 'require_all'
 gem 'activerecord', '5.2'
 gem 'sinatra-activerecord'
 gem 'rake'
-gem 'dotenv'
 gem 'bcrypt'
 gem 'validates_and_formats_phones'
 gem 'random-word-generator', '~> 0.0.1'
+gem 'dotenv'
 
 group :development do
    gem 'shotgun'

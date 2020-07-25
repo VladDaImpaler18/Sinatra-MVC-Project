@@ -12,6 +12,10 @@ class ApplicationController < Sinatra::Base
 
 
   get "/" do
+    if Owner.all.size==0 #do a first run program here
+      cli = AdminCreator.new
+      cli.run
+    end
     erb :index
   end
 
@@ -35,17 +39,17 @@ class ApplicationController < Sinatra::Base
     end
 
     def animal_shelter?
-      animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => "Animal Shelter") #prevents wrong first ID mishaps
+      animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => ENV["ADMIN_USERNAME"]) #prevents wrong first ID mishaps
       @current_user==animal_shelter ? true : false
     end
     
     def standardize_inputs
-      number_of_words = 2 #must match @@GLOBALS in picture class
-      number_of_characters = 20
-      params[:username].downcase! if !params[:username].nil? && params[:username] != "Animal Shelter" #standarizes usernames in database
+      num_of_words = ENV["WORDS"]
+      num_of_characters = ENV["LETTERS"]
+      params[:username].downcase! if !params[:username].nil? && params[:username] != ENV["ADMIN_USERNAME"] #standarizes usernames in database
       params[:phone] = params[:phone].to_phone if !params[:phone].nil? #standarizes phone number in database
-      params[:filename] = "#{RandomWordGenerator.composed(2, 20, '-')}_#{params[:filename].gsub("_"," ")}" if !params[:filename].nil? #SEED DATA replaces underscores with spaces to avoid complications
-      params[:file][:filename] = "#{RandomWordGenerator.composed(2, 20, '-')}_#{params[:file][:filename].gsub("_"," ")}" if defined? params[:file][:filename] #Actual picture upload
+      params[:filename] = "#{RandomWordGenerator.composed(num_of_words, num_of_characters, '-')}_#{params[:filename].gsub("_"," ")}" if !params[:filename].nil? #SEED DATA replaces underscores with spaces to avoid complications
+      params[:file][:filename] = "#{RandomWordGenerator.composed(num_of_words, num_of_characters, '-')}_#{params[:file][:filename].gsub("_"," ")}" if defined? params[:file][:filename] #Actual picture upload
     end
 
     def pet_owner?

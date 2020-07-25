@@ -24,7 +24,7 @@ class Pet < ActiveRecord::Base
     end
 
     def available_for_adoption?
-        self.owner.nil? || (self.owner.username == "Animal Shelter" && self.owner.id == 1)
+        self.owner.nil? || (self.owner.username == ENV["ADMIN_USERNAME"] && self.owner.id == 1)
     end
 
 end

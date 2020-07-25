@@ -3,7 +3,7 @@
 
 <h3>Pets available for adoption:</h3>
 <% Pet.all.each do |pet| %>
-    <% next unless pet.owner.nil? || pet.owner.username == "Animal Shelter" %>
+    <% next unless pet.owner.nil? || pet.owner.username == ENV["ADMIN_USERNAME"] %>
     <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
 <% end %>
 <p><a href="/pets/new"> Add pets </a></p>
@@ -12,7 +12,7 @@
 <h3>Inspect Owners:</h3>
 <form method="post" action="/owners/admin">
 <% @owners.each do |owner| %>
-    <% next if owner.id==1 && owner.username == "Animal Shelter"%>
+    <% next if owner.id==1 && owner.username == ENV["ADMIN_USERNAME"]%>
     <input type="radio" name="owner" id="<%= owner.id %>" value="<%= owner.id %>"> <%= owner.fullname %> </input>  
 <% end %>
 <br>
