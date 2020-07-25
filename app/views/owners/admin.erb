@@ -1,14 +1,16 @@
-Page for the user, displays pets profiles. Pet profiles are links to the pet's page
 <% if animal_shelter? %>
 <h1>Welcome Admin</h1>
 
-
-<a href="/pets/new"> Add pets </a>
+<h3>Pets available for adoption:</h3>
+<% Pet.all.each do |pet| %>
+    <% next unless pet.owner.nil? || pet.owner.username == "Animal Shelter" %>
+    <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
+<% end %>
+<p><a href="/pets/new"> Add pets </a></p>
 
 
 <h3>Inspect Owners:</h3>
-<form method="post" action="/owners/:id/edit">
-<input id="hidden" type="hidden" name="_method" value="patch">
+<form method="post" action="/owners/admin">
 <% @owners.each do |owner| %>
     <% next if owner.id==1 && owner.username == "Animal Shelter"%>
     <input type="radio" name="owner" id="<%= owner.id %>" value="<%= owner.id %>"> <%= owner.fullname %> </input>  
@@ -18,5 +20,5 @@ Page for the user, displays pets profiles. Pet profiles are links to the pet's p
 </form>
 <% elsif logged_in?%>
     You must be the admin to view this game
-<% end#end of user %>
+<% end %>
 <a href="/owners/logout">Log Out</a>

@@ -30,6 +30,10 @@ class ApplicationController < Sinatra::Base
       @current_pet ||= Pet.find_by_id(session[:pet_id]) if session[:pet_id]
     end
 
+    def current_picture
+      @current_picture ||= Picture.find_by_id(session[:picture_id]) if session[:picture_id]
+    end
+
     def animal_shelter?
       animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => "Animal Shelter") #prevents wrong first ID mishaps
       @current_user==animal_shelter ? true : false
@@ -40,7 +44,8 @@ class ApplicationController < Sinatra::Base
       number_of_characters = 20
       params[:username].downcase! if !params[:username].nil? && params[:username] != "Animal Shelter" #standarizes usernames in database
       params[:phone] = params[:phone].to_phone if !params[:phone].nil? #standarizes phone number in database
-      params[:filename] = "#{RandomWordGenerator.composed(2, 20, '-')}_#{params[:filename].gsub("_"," ")}" if !params[:filename].nil? #replaces underscores with spaces to avoid complications
+      params[:filename] = "#{RandomWordGenerator.composed(2, 20, '-')}_#{params[:filename].gsub("_"," ")}" if !params[:filename].nil? #SEED DATA replaces underscores with spaces to avoid complications
+      params[:file][:filename] = "#{RandomWordGenerator.composed(2, 20, '-')}_#{params[:file][:filename].gsub("_"," ")}" if defined? params[:file][:filename] #Actual picture upload
     end
 
     def pet_owner?

@@ -16,12 +16,15 @@ class Pet < ActiveRecord::Base
     end
 
     def profile_pic_filename
-        filename = self.profile_pic.split("_").last.split(".").first
-        filename
+        self.profile_pic.split("_").last.split(".").first
     end
 
     def profile_pic=(picture_id)
         self.profile = picture_id
+    end
+
+    def available_for_adoption?
+        self.owner.nil? || (self.owner.username == "Animal Shelter" && self.owner.id == 1)
     end
 
 end

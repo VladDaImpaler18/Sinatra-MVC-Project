@@ -15,7 +15,7 @@ class Picture < ActiveRecord::Base
         self[:filename].split("_").last
     end
 
-    def filename=(arg) #look into this when standarizing
+    def filename=(arg) #look into this when  Only used for console edits
         if !self[:filename].nil?
             self[:filename]="#{self[:filename].split("_").first}_#{arg}" #seed data input
         elsif !arg.split("_").first.size==@@NUMBEROFCHARS
@@ -23,10 +23,9 @@ class Picture < ActiveRecord::Base
         else
             self[:filename]=arg
         end
-        binding.pry
-    end
-    #new_pic = Picture.new(:title => "Generic Photo", :filename => "wellheads-wides_Border collie.jpg", :caption => "Stock Photo", :description => "This photo was taken from the Internet")
-    def filename_salted
+     end
+
+     def filename_salted
         self[:filename]
     end
 

@@ -4,7 +4,7 @@ class OwnersController < ApplicationController
         #If the user is the animal shelter, we can add pets, and assign them
         if logged_in?
             @owners = Owner.all if animal_shelter? #TODO: limit exposure by checking for admin 
-            erb :'owners/index'
+            erb :'owners/admin'
         else
             redirect "/owners/login"
         end
@@ -54,7 +54,8 @@ class OwnersController < ApplicationController
     delete '/owners/:id' do 
         @owner = Owner.find_by_id(params[:id])
         @owner.delete
-        redirect to "/"
+        redirect to "/owners" if animal_shelter?
+        redirect to "/owners/logout"
     end
 
     get "/owners/logout" do 
@@ -65,32 +66,52 @@ class OwnersController < ApplicationController
     get "/owners/:id" do 
        #need to get individual id maybe do radio buttons for params?
        if logged_in?
+        redirect "/owners" if animal_shelter?
         erb :'/owners/show'
        else
         redirect '/owners/login'
        end
     end
+
+    post "/owners/admin" do
+        @owner = Owner.find_by_id(params[:owner])
+        erb :'/owners/edit'
+    end
     
     patch "/owners/:id" do
         current_user
-        if !params[:old_password].empty? && current_user.authenticate(params[:old_password]) #update password
-            if params[:new_password]==params[:new_password2] && !params[:new_password].empty?
-                current_user.password= params[:new_password] 
+        if !animal_shelter?
+            if !params[:old_password].empty? && current_user.authenticate(params[:old_password]) #update password
+                if params[:new_password]==params[:new_password2] && !params[:new_password].empty?
+                    current_user.password= params[:new_password] 
+                else
+                    @error_message = "New password and confirmation do not match"
+                    erb :'/owners/edit'
+                end
             else
-                @error_message = "New password and confirmation do not match"
-                erb :'/error'
+                @error_message = "Invalid Password"
+                @owner=Owner.find_by_id(params[:id])
+                erb :'/owners/edit'
             end
-        else
-            @error_message = "Invalid Password"
-            erb :'/error'
-        end
-        params.each do |k,v|
-            next if k=="old_password" || k=="new_password" ||k=="_method" || k=="id"
-            current_user[k]=v unless v.empty?
-        end
-        current_user.save(validate: false)
+            standardize_inputs
+            params.each do |k,v|
+                next if k=="old_password" || k=="new_password" || k=="new_password2" ||k=="_method" || k=="id"
+                current_user[k]=v unless v.empty?
+            end
+            current_user.save(validate: false)
         
-        redirect to "/owners/#{current_user.id}"
+            redirect to "/owners/#{current_user.id}"
+        else #if coming from admin portal
+            @owner = Owner.find_by_id(params[:id])
+            standardize_inputs
+            params.each do |k,v|
+                next if k=="old_password" || k=="new_password" ||k=="_method" || k=="id"
+                @owner[k]=v unless v.empty?
+            end
+            @owner.save(validate: false)
+        
+            redirect to "/owners"
+        end
     end
 
     get "/owners/:id/edit" do
@@ -98,6 +119,7 @@ class OwnersController < ApplicationController
             @error_message = "You must be logged in to view this content"
             erb :error
         end
+        @owner=Owner.find_by_id(params[:id])
         erb :'/owners/edit'
     end
 

@@ -1,12 +1,13 @@
-This is the index page for all pets
+<h1>Pets available for adoptions</h1>
 <% @pets.each do |pet| %>
-
+<% next unless pet.available_for_adoption?%>
 <a href="/pets/<%= pet.id %>">
     <figure>
-        <img src="<%= pet.profile_pic_filename %>" alt="<%= pet.profile_pic_filename %>" height="300" width="231"/><br>
+        <img src="<%= pet.profile_pic %>" alt="<%= pet.profile_pic_filename %>" height="300" width="231"/><br>
         <figcaption>
             <%= pet.name %>
         </figcaption>
     </figure>
 </a>
 <% end %>
+<button type="submit" onclick='window.location.href="/owners/<%= current_user.id %>";'>Go Back</button>

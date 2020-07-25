@@ -1,0 +1,18 @@
+<% if logged_in? %>
+<form method="post" action="/pictures/<%= current_picture.id %>">
+<input id="hidden" type="hidden" name="_method" value="patch">
+<img src="<%= current_picture.get_picture_path %>" alt="<%=current_picture.filename %>" height = "600" width = "462">
+<p><label for="title">Title:</label><input type="text" name="title" placeholder="<%= current_picture.title %>"></p>
+<p><label for="caption">Caption:</label><input type="text" name="caption" placeholder="<%= current_picture.caption %>"></p>
+<p><label for="description">Description:</label><textarea name="description" placeholder="<%= current_picture.description %>" cols="40" rows="5"></textarea></p>
+
+<input type="submit" value="Update Information">
+</form>
+<button type="submit" onclick='window.location.href="/pictures/<%= current_picture.id %>";'>Go Back</button>
+<form method="post" action="/pictures/<%= current_picture.id %>">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete this picture">
+</form>
+<% else %>
+You must be logged in to view this page
+<% end %>

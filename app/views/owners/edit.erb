@@ -1,39 +1,52 @@
 <% if logged_in? %>
-<form method="post" action="/owners/<%= current_user.id %>">
+<form method="post" action="/owners/<%= @owner.id %>">
 <input id="hidden" type="hidden" name="_method" value="patch">
-    <h2>Your Info:</h2>
+    <% if animal_shelter? %>
+        <h1>Admin Portal:</h1>
+        <h2><%= @owner.fullname %>'s Info:</h2>
+    <% else %>
+        <h2>Your Info:</h2>
+    <% end %>
     <h4>Enter information below to change contact info and\or mailing info</h4>
     <p><strong>Contact Info:</strong><br>
-    <p><label for="fname">First Name:</label><input type="text" name="fname" placeholder="<%= current_user.fname %>">
-    <label for="lname">Last Name:</label><input type="text" name="lname" placeholder="<%= current_user.lname %>"></p>
-    <label for="phone">Phone Number:</label><input type="text" name="phone" size=14 placeholder="<%= current_user.phone %>">
+    <p><label for="fname">First Name:</label><input type="text" name="fname" placeholder="<%= @owner.fname %>">
+    <label for="lname">Last Name:</label><input type="text" name="lname" placeholder="<%= @owner.lname %>"></p>
+    <label for="phone">Phone Number:</label><input type="text" name="phone" size=14 placeholder="<%= @owner.phone %>">
     </p>
     <br>
     <p><strong>Mailing Info:</strong><br>
-    <label for="street">Street Address:</label><input type="text" name="street" size=40 placeholder="<%= current_user.street %>"><br>
+    <label for="street">Street Address:</label><input type="text" name="street" size=40 placeholder="<%= @owner.street %>"><br>
 
-    <p><label for="city">City:</label><input type="text" name="city" placeholder="<%= current_user.city %>"> <label for="state">State:</label><input type="text" name="state" size=2 placeholder="<%= current_user.state %>">
-    <label for="zip">Zip Code:</label><input type="text" name="zip" size=5 placeholder="<%= current_user.zip %>"></p>
+    <p><label for="city">City:</label><input type="text" name="city" placeholder="<%= @owner.city %>"> <label for="state">State:</label><input type="text" name="state" size=2 placeholder="<%= @owner.state %>">
+    <label for="zip">Zip Code:</label><input type="text" name="zip" size=5 placeholder="<%= @owner.zip %>"></p>
     </p>
-    
-    <br><br>
-    <p><strong>Account Info:</strong></p>
-    <p><i> Enter information below to change password: </i></p>
-    <p><label for="old_password">Old Password: <input type="password" name="old_password"></p>
-    <p><label for="new_password">New Password: <input type="password" name="new_password"></p>
-    <p><label for="new_password2">Confirm New Password: <input type="password" name="new_password2"></p>
-    <br>
-    
-    <input type="submit" value="Update Account">
+    <% if animal_shelter? %>
+    <h5><%= @owner.fullname %>'s list of pets:</h5>
+        <% @owner.pets.each do |pet| %>
+        <p><%= pet.name %></p>
+        <% end %>
+    <% else %>
+        <br><br>
+        <p><strong>Account Info:</strong></p>
+        <p><i> Enter information below to change password: </i></p>
+        <p><label for="old_password">Old Password: <input type="password" name="old_password"></p>
+        <p><label for="new_password">New Password: <input type="password" name="new_password"></p>
+        <p><label for="new_password2">Confirm New Password: <input type="password" name="new_password2"></p>
+        <br>
+    <% end %>
+<%= @error_message if @error_message %>
+<input type="submit" value="Update Account">
 </form>
-<button type="submit" onclick='window.location.href="/owners/<%= current_user.id %>";'>Go Back</button>
+<% if animal_shelter? %>
+    <button type="submit" onclick='window.location.href="/owners";'>Return to Admin Page</button>
+<% else %>
+    <button type="submit" onclick='window.location.href="/owners/<%= current_user.id %>";'>Go Back</button>
+<% end %>
 <br><br>
-<% if !animal_shelter? %>
-<form method="post" action="/owner/<%= current_user.id %>/delete">
+<form method="post" action="/owners/<%= @owner.id %>">
  <input id="hidden" type="hidden" name="_method" value="delete">
  <input type="submit" value="Delete This Account">   
 </form>
-<% end %>
 <% else %>
 <a href="/"> You must be logged in to view this page </a>
 <% end %>

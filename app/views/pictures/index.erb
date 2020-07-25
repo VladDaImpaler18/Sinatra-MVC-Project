@@ -1,13 +1,14 @@
-<p>This is the Pictures index page</p>
+<h1>Pictures of waiting to be adopted pets</h1>
 <% @pictures.each do |picture| %>
-<% if picture.pets.first.owner.nil? %>
-<h3><%= picture.title %></h3>
+<p><h3><%= picture.title %></h3>
 <figure>
 <img src="<%= picture.get_picture_path %>" alt="<%= picture.filename %>" height="300" width="231"/><br>
 <figcaption>
 <%= picture.caption %>
 </figcaption>
 <%= picture.description %><br>
-</figure>
+</figure></p>
 <% end %>
-<% end %>
+<br>
+<button type="submit" onclick='window.location.href="/";'>Go Back</button>
+<br>

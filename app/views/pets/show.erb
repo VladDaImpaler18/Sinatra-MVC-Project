@@ -1,10 +1,9 @@
-<a href="/pets/<%= current_pet.id %>/edit">Edit pet information</a>
 <h1><%= current_pet.name %></h1>
 <p>
   <h5>Profile picture:</h5>
   <img src="<%= current_pet.profile_pic %>" alt="<%= current_pet.profile_pic_filename %>" height="300" width="231"/> <br>
 </p>
-<p>Companion to: <%= current_pet.owner.fullname unless current_pet.owner.nil? %></p>
+<p>Companion to: <%= current_pet.owner.fullname unless current_pet.available_for_adoption? %></p>
 <p>Breed: <%= current_pet.breed unless current_pet.breed.nil? %></p>
 
 <h5>Photo Album</h5>
@@ -14,6 +13,21 @@
   </a>
 <% end %>
 <br>
-<button type="submit" onclick='window.location.href="/owners/<%= current_pet.owner.id %>";'>Go Back</button>
+<% if current_pet.available_for_adoption? %>
+  <form method="post" action="/pets">
+  <input type="hidden" name="adopt" value="<%= current_pet.id %>">
+  <input type="submit" value="Adopt Me!">
+  </form>
+<% end %>
+
 <br>
+<button type="submit" onclick='window.location.href="/owners/<%= current_user.id %>";'>Go Back</button>
+<br>
+<% if pet_owner? || animal_shelter? %>
+<form method="post" action="/pets">
+  <input type="hidden" name="revoke" value="<%= current_pet.id %>">
+  <input type="submit" value="Revoke Ownership">
+</form>
+<a href="/pets/<%= current_pet.id %>/edit">Edit pet information</a>
 <p><a href="/pictures/new"> Add picture to photo album </a></p>
+<% end %>

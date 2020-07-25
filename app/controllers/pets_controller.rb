@@ -2,7 +2,30 @@ class PetsController < ApplicationController
 
     get "/pets" do
         @pets = Pet.all
-        erb :'pets/index'
+        erb :'/pets/index'
+    end
+
+    post "/pets" do
+        if params[:revoke]
+            current_user.pets.delete(current_pet)
+            if current_user.save(validate: false)
+               session.delete(:pet_id)
+               redirect "/owners/#{current_user.id}"
+            else
+                @error_message = "Error revoking pet"
+                erb :error
+            end
+        end
+        if params[:adopt]
+            current_user.pets << current_pet
+            if current_user.save(validate: false)
+                redirect "/owners/#{current_user.id}"
+            else
+                @error_message = "Error adopting pet"
+                erb :error
+            end
+        end
+        
     end
 
     get "/pets/new" do
@@ -24,6 +47,9 @@ class PetsController < ApplicationController
         if logged_in? 
             session[:pet_id] = params[:id]
             if pet_owner? || animal_shelter?
+                current_pet
+                erb :'/pets/show'
+            elsif current_pet.available_for_adoption?
                 current_pet
                 erb :'/pets/show'
             else
@@ -48,15 +74,20 @@ class PetsController < ApplicationController
 
     delete "/pets/:id" do
         @pet = Pet.find_by_id(params[:id])
+        @pet.pictures.each do |picture|
+            File.delete("./public/#{picture.get_picture_path}") if File.exist?("./public/#{picture.get_picture_path}")
+            picture.delete
+        end
         @pet.delete
         session.delete(:pet_id)
+        session.delete(:picture_id)
         redirect to "/owners/#{current_user.id}"
     end
 
     get "/pets/:id/edit" do 
         if logged_in?
-            if pet_owner? || anaimal_shelter?
-                erb :'pets/edit'
+            if pet_owner? || animal_shelter?
+                erb :'/pets/edit'
             else
                 @error_message = "This isn't your pet, you cannot edit the pet's information"
                 erb :error

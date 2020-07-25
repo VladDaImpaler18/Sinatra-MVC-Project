@@ -22,7 +22,7 @@
 <br>
 <a href="/pictures/new"> Add more pictures </a><br>
 <button type="submit" onclick='window.location.href="/pets/<%= @current_pet.id %>";'>Cancel Edits</button>
-<form method="post" action="/owners/<%= current_user.id %>">
+<form method="post" action="/pets/<%= current_pet.id %>">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete Pet Profile">
 </form>
