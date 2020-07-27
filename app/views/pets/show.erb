@@ -13,7 +13,7 @@
   </a>
 <% end %>
 <br>
-<% if current_pet.available_for_adoption? %>
+<% if current_pet.available_for_adoption? && !animal_shelter?%>
   <form method="post" action="/pets">
   <input type="hidden" name="adopt" value="<%= current_pet.id %>">
   <input type="submit" value="Adopt Me!">
@@ -23,11 +23,12 @@
 <br>
 <button type="submit" onclick='window.location.href="/owners/<%= current_user.id %>";'>Go Back</button>
 <br>
-<% if pet_owner? || animal_shelter? %>
+<% if pet_owner? && !animal_shelter? %>
 <form method="post" action="/pets">
   <input type="hidden" name="revoke" value="<%= current_pet.id %>">
   <input type="submit" value="Revoke Ownership">
 </form>
+<% end %>
 <a href="/pets/<%= current_pet.id %>/edit">Edit pet information</a>
 <p><a href="/pictures/new"> Add picture to photo album </a></p>
-<% end %>
+

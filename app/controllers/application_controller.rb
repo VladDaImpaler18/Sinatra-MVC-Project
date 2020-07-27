@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
 
 
   get "/" do
-    if Owner.all.size==0 #do a first run program here
+    if Owner.all.size==0
       cli = AdminCreator.new
       cli.run
     end
@@ -44,12 +44,12 @@ class ApplicationController < Sinatra::Base
     end
     
     def standardize_inputs
-      num_of_words = ENV["WORDS"]
-      num_of_characters = ENV["LETTERS"]
+      words = ENV["WORDS"].to_i
+      characters = ENV["LETTERS"].to_i
       params[:username].downcase! if !params[:username].nil? && params[:username] != ENV["ADMIN_USERNAME"] #standarizes usernames in database
       params[:phone] = params[:phone].to_phone if !params[:phone].nil? #standarizes phone number in database
       params[:filename] = "#{RandomWordGenerator.composed(num_of_words, num_of_characters, '-')}_#{params[:filename].gsub("_"," ")}" if !params[:filename].nil? #SEED DATA replaces underscores with spaces to avoid complications
-      params[:file][:filename] = "#{RandomWordGenerator.composed(num_of_words, num_of_characters, '-')}_#{params[:file][:filename].gsub("_"," ")}" if defined? params[:file][:filename] #Actual picture upload
+      params[:file][:filename] = "#{RandomWordGenerator.composed(words, characters, '-')}_#{params[:file][:filename].gsub("_"," ")}" if defined? params[:file][:filename] #Actual picture upload
     end
 
     def pet_owner?

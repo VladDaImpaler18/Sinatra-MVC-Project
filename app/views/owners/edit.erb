@@ -1,5 +1,5 @@
 <% if logged_in? %>
-<form method="post" action="/owners/<%= @owner.id %>">
+<form method="post" action="/owners<%="/#{@owner.id if @owner.id}"%>">
 <input id="hidden" type="hidden" name="_method" value="patch">
     <% if animal_shelter? %>
         <h1>Admin Portal:</h1>

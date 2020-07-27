@@ -3,7 +3,7 @@ class OwnersController < ApplicationController
     get "/owners" do
         #If the user is the animal shelter, we can add pets, and assign them
         if logged_in?
-            @owners = Owner.all if animal_shelter? #TODO: limit exposure by checking for admin 
+            @owners = Owner.all if animal_shelter?
             erb :'owners/admin'
         else
             redirect "/owners/login"

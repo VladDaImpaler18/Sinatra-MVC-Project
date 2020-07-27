@@ -15,8 +15,8 @@ class Picture < ActiveRecord::Base
     end
 
     def filename=(arg) #look into this when  Only used for console edits
-        num_of_words = ENV["WORDS"]
-        num_of_characters = ENV["LETTERS"]
+        num_of_words = ENV["WORDS"].to_i
+        num_of_characters = ENV["LETTERS"].to_i
         if !self[:filename].nil?
             self[:filename]="#{self[:filename].split("_").first}_#{arg}" #seed data input
         elsif !arg.split("_").first.size==num_of_characters
