@@ -28,4 +28,5 @@ If you would like to contribute fork the github repo, create your feature branch
 
 ## Changelog
 Version 1.1 (7/28/2020) Additional info and fixes on seed data, readme updated to reflect seed data usage
+
 Version 1.0 (7/27/2020) Initial Release
