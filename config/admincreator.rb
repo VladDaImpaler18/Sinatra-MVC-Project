@@ -54,7 +54,7 @@ class AdminCreator
             if admin[:username].eql?(input_username) && admin.authenticate(input_password)
                 puts "Congratulations! The admin account has been created successfully..."
                 puts "Log in via the website to access the Admin Portal."
-                puts "Lastly, environmental settings must be set."
+                puts "Lastly, environmental settings must be set.\n"
                 confirmed= true
             elsif input_username.eql?("Restart") && input_password.eql?("Restart")
                 admin[:username]= nil
@@ -65,9 +65,11 @@ class AdminCreator
             end
             break if confirmed
         end #end of admin username\password creation
+        admin[:id]= 1
         admin.save(validate: false)
 
         while 42 #.env file variables
+            puts ""
             puts "Picture filenames must be salted. Salt is formed by number of WORDS, and number of CHARACTERS."
             puts "Extreme WORD:CHARACTERS ratios will result in a low quality salt."
             puts "Enter the number of WORDS to be used. Only Integers are accepted. (Recommended: 2)"

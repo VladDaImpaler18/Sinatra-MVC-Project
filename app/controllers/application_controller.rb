@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
 
 
   get "/" do
-    if Owner.all.size==0
+    if !ENV["ADMIN_USERNAME"]
       cli = AdminCreator.new
       cli.run
     end
@@ -39,8 +39,8 @@ class ApplicationController < Sinatra::Base
     end
 
     def animal_shelter?
-      animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => ENV["ADMIN_USERNAME"]) #prevents wrong first ID mishaps
-      @current_user==animal_shelter ? true : false
+      animal_shelter = Owner.find_by_id(1) && Owner.find_by(:username => ENV["ADMIN_USERNAME"])
+      current_user==animal_shelter ? true : false
     end
     
     def standardize_inputs
