@@ -1,0 +1,8 @@
+**/config/settings.env
+**/db/seeds.rb
+**/db/development.sqlite
+**/db/schema.rb
+*.jpg
+*.JPG
+!worktables-longsword_default logo.jpg
+
