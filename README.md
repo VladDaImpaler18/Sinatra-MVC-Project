@@ -18,7 +18,7 @@ To get started the database must be loaded by using the rake task `rake db:migra
 Once started, you can log in normally as the admin to add pets to be adopted. Once pets have been added, the pet's owner (in this instance the admin) can add/edit/delete picture's in the pet's photo album. You cannot view the pet's profiles without having an account. You can only view your own pets, or pets available for adoption. If you try to view other pet's who have a different owner you will be denied access. Users can delete their own account and any pets associated with them will be put back for adoption. Each pet gets their own profile page with a profile picture, and photo album. Each photo gets their own detailed page.
 
 ## Loading Seed Data
-For demonstration purposes, there is an included SeedData.tar.xz that contains the files used for creating seed data. Extract the tar by your GUI, or the terminal commands ```tar -xf SeedData.tar.xz```. Load the seed data by using the command ```rake :db:seed``` this will load dummy data for demoing purposes. You are still required to make an admin username and password, and set up the environmental variables
+For demonstration purposes, there is an included SeedData.tar.xz that contains the files used for creating seed data. Extract the tar by your GUI, or the terminal commands ```tar -xf SeedData.tar.xz```. Load the seed data by using the command ```rake db:seed``` this will load dummy data for demoing purposes. You are still required to make an admin username and password, and set up the environmental variables
 
 ## Contributors
 If you would like to contribute fork the github repo, create your feature branch, commit changes and push the branch.
