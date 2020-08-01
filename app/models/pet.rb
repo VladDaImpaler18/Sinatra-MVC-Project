@@ -28,3 +28,4 @@ class Pet < ActiveRecord::Base
     end
 
 end
+#/pets/:pets_id/pictures/:picture_id

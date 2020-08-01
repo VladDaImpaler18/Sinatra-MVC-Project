@@ -79,7 +79,7 @@ class OwnersController < ApplicationController
     end
     
     patch "/owners/:id" do
-        current_user
+        #current_user
         if !animal_shelter?
             if !params[:old_password].empty? && current_user.authenticate(params[:old_password]) #update password
                 if params[:new_password]==params[:new_password2] && !params[:new_password].empty?

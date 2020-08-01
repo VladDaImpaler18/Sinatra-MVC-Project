@@ -46,11 +46,8 @@ class PetsController < ApplicationController
     get "/pets/:id" do
         if logged_in? 
             session[:pet_id] = params[:id]
-            if pet_owner? || animal_shelter?
-                current_pet
-                erb :'/pets/show'
-            elsif current_pet.available_for_adoption?
-                current_pet
+            if (pet_owner? || animal_shelter?) || current_pet.available_for_adoption?
+                #current_pet
                 erb :'/pets/show'
             else
                 @error_message = "This isn't your pet, you cannot view this page"
@@ -73,19 +70,26 @@ class PetsController < ApplicationController
     end
 
     delete "/pets/:id" do
-        @pet = Pet.find_by_id(params[:id])
-        @pet.pictures.each do |picture|
-            File.delete("./public/#{picture.get_picture_path}") if File.exist?("./public/#{picture.get_picture_path}")
-            picture.delete
+        @current_pet = Pet.find_by_id(params[:id])
+        if animal_shelter?
+            @current_pet.pictures.each do |picture|
+                File.delete("./public/#{picture.get_picture_path}") if File.exist?("./public/#{picture.get_picture_path}")
+                picture.delete
+            end
+            @current_pet.delete
+            session.delete(:pet_id)
+            session.delete(:picture_id)
+            redirect to "/owners/#{current_user.id}"
+        else
+            @error_message = "This isn't your pet to delete!"
+            erb :error
         end
-        @pet.delete
-        session.delete(:pet_id)
-        session.delete(:picture_id)
-        redirect to "/owners/#{current_user.id}"
+        
     end
 
     get "/pets/:id/edit" do 
         if logged_in?
+            @current_pet = Pet.find_by_id(params[:id])
             if pet_owner? || animal_shelter?
                 erb :'/pets/edit'
             else
